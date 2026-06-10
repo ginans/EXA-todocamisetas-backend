@@ -20,6 +20,12 @@ docker compose exec app php artisan migrate
 
 Aplicacion disponible en `http://localhost:8080`.
 
+## Reproducibilidad de dependencias
+
+- El contenedor `app` instala dependencias automaticamente con `composer install` al iniciar.
+- La instalacion usa `composer.lock`, por lo que mantiene exactamente las mismas versiones.
+- No usar `composer update` salvo que el equipo acuerde actualizar versiones y commitear un nuevo lock.
+
 ## Estructura base
 
 - `app/Models`: entidades del dominio.

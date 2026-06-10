@@ -5,6 +5,10 @@ services:
       dockerfile: docker/php/Dockerfile
     container_name: todocamisetas_app
     working_dir: /var/www
+    command: >
+      sh -c "test -f composer.lock || (echo 'Falta composer.lock para garantizar dependencias fijas' && exit 1);
+      composer install --no-interaction --prefer-dist --optimize-autoloader;
+      php-fpm"
     volumes:
       - .:/var/www
     networks:
