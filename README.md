@@ -10,15 +10,37 @@ Backend de la evaluacion TodoCamisetas, montado con Laravel 11 y Docker para ase
 - Nginx 1.27 Alpine
 - MySQL 8.0
 
+## Requisitos
+
+- Docker
+- Docker Compose
+
 ## Puesta en marcha
 
+Desde la raiz del proyecto:
+
 ```bash
+cp .env.example .env
 docker compose up -d --build
 docker compose exec app php artisan key:generate
 docker compose exec app php artisan migrate
 ```
 
+Si ya existen datos de pruebas anteriores y quieres reiniciar la base:
+
+```bash
+docker compose exec app php artisan migrate:fresh
+```
+
 Aplicacion disponible en `http://localhost:8080`.
+
+## Verificacion rapida
+
+```bash
+curl -s http://localhost:8080/api/v1/clientes
+curl -s http://localhost:8080/api/v1/camisetas
+curl -s http://localhost:8080/api/v1/tallas
+```
 
 ## Documentacion API
 
@@ -42,6 +64,13 @@ Aplicacion disponible en `http://localhost:8080`.
 - El contenedor `app` instala dependencias automaticamente con `composer install` al iniciar.
 - La instalacion usa `composer.lock`, por lo que mantiene exactamente las mismas versiones.
 - No usar `composer update` salvo que el equipo acuerde actualizar versiones y commitear un nuevo lock.
+
+## Solucion de problemas comunes
+
+- Si falla por puertos ocupados (`8080` o `3306`), liberar puerto o cambiar mapeo en `docker-compose.yml`.
+- Si Swagger no refleja cambios nuevos, regenerar con:
+	- `docker compose exec app php artisan l5-swagger:generate`
+- Si aparecen problemas de permisos en archivos generados por Docker, volver a levantar con las variables `UID` y `GID` del `.env`.
 
 ## Estructura base
 
