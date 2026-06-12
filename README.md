@@ -20,6 +20,23 @@ docker compose exec app php artisan migrate
 
 Aplicacion disponible en `http://localhost:8080`.
 
+## Documentacion API
+
+- Swagger UI: `http://localhost:8080/api/documentation`
+- JSON generado: `storage/api-docs/api-docs.json`
+- Regenerar docs: `docker compose exec app php artisan l5-swagger:generate`
+
+## Coleccion Postman
+
+- Archivo importable: `docs/postman/TodoCamisetas.postman_collection.json`
+- Variable incluida: `baseUrl` (por defecto `http://localhost:8080`)
+
+## Endpoints principales
+
+- Camisetas: CRUD + precio final por cliente
+- Clientes: CRUD + listado de camisetas por cliente
+- Tallas: CRUD + asociacion/desasociacion con camisetas
+
 ## Reproducibilidad de dependencias
 
 - El contenedor `app` instala dependencias automaticamente con `composer install` al iniciar.

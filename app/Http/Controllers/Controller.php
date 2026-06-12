@@ -15,6 +15,7 @@ use OpenApi\Attributes as OA;
 )]
 #[OA\Tag(name: 'Camisetas', description: 'Gestion de camisetas')]
 #[OA\Tag(name: 'Clientes', description: 'Gestion de clientes')]
+#[OA\Tag(name: 'Tallas', description: 'Gestion de tallas y asociacion a camisetas')]
 abstract class Controller
 {
     //

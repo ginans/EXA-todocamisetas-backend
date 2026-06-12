@@ -1,0 +1,191 @@
+{
+  "info": {
+    "name": "TodoCamisetas API",
+    "description": "Coleccion base para consumir la API de TodoCamisetas.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Camisetas",
+      "item": [
+        {
+          "name": "Listar camisetas",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/camisetas"
+          }
+        },
+        {
+          "name": "Crear camiseta",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Camiseta Local 2025 - Seleccion Chilena\",\n  \"club\": \"Seleccion Chilena\",\n  \"pais\": \"Chile\",\n  \"tipo\": \"Local\",\n  \"color\": \"Rojo\",\n  \"precio\": 45000,\n  \"precio_oferta\": 42000,\n  \"detalles\": \"Edicion aniversario\",\n  \"codigo_producto\": \"SCL2025L\"\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/camisetas"
+          }
+        },
+        {
+          "name": "Obtener camiseta por id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/camisetas/1"
+          }
+        },
+        {
+          "name": "Precio final por cliente",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/camisetas/1/precio-final?cliente_id=1"
+          }
+        },
+        {
+          "name": "Actualizar camiseta",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"precio\": 47000,\n  \"precio_oferta\": 43000\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/camisetas/1"
+          }
+        },
+        {
+          "name": "Eliminar camiseta",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/camisetas/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Clientes",
+      "item": [
+        {
+          "name": "Listar clientes",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/clientes"
+          }
+        },
+        {
+          "name": "Crear cliente",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre_comercial\": \"90minutos\",\n  \"rut\": \"77.123.456-7\",\n  \"direccion\": \"Providencia, Santiago\",\n  \"categoria\": \"preferencial\",\n  \"contacto_nombre\": \"Maria Perez\",\n  \"contacto_email\": \"compras@90minutos.cl\",\n  \"porcentaje_oferta\": 10\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/clientes"
+          }
+        },
+        {
+          "name": "Obtener cliente por id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/clientes/1"
+          }
+        },
+        {
+          "name": "Listar camisetas de cliente",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/clientes/1/camisetas"
+          }
+        },
+        {
+          "name": "Actualizar cliente",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"direccion\": \"Providencia, RM\"\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/clientes/1"
+          }
+        },
+        {
+          "name": "Eliminar cliente",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/clientes/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tallas",
+      "item": [
+        {
+          "name": "Listar tallas",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/tallas"
+          }
+        },
+        {
+          "name": "Crear talla",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"XL\",\n  \"descripcion\": \"Extra Large\"\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/tallas"
+          }
+        },
+        {
+          "name": "Asociar talla a camiseta",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"talla_id\": 1\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/camisetas/1/tallas"
+          }
+        },
+        {
+          "name": "Listar tallas de camiseta",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/camisetas/1/tallas"
+          }
+        },
+        {
+          "name": "Desasociar talla de camiseta",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/camisetas/1/tallas/1"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}

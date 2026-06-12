@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Camiseta;
 use App\Models\Cliente;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -49,6 +50,49 @@ class ClienteController extends Controller
         }
 
         return response()->json($cliente, 200);
+    }
+
+    #[OA\Get(
+        path: '/api/v1/clientes/{id}/camisetas',
+        tags: ['Clientes'],
+        summary: 'Listar camisetas asociadas a un cliente',
+        parameters: [
+            new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer', minimum: 1)),
+        ],
+        responses: [
+            new OA\Response(response: 200, description: 'Listado obtenido', content: new OA\JsonContent(type: 'array', items: new OA\Items(type: 'object'))),
+            new OA\Response(response: 404, description: 'No encontrado', content: new OA\JsonContent(type: 'object')),
+        ]
+    )]
+    public function camisetas(int $id): JsonResponse
+    {
+        $cliente = Cliente::query()->with('camisetas.tallas')->find($id);
+
+        if (!$cliente) {
+            return response()->json(['message' => 'Cliente no encontrado'], 404);
+        }
+
+        $camisetas = $cliente->camisetas->map(function (Camiseta $camiseta) use ($cliente) {
+            $esPreferencial = mb_strtolower((string) $cliente->categoria) === 'preferencial';
+            $precioFinal = ($esPreferencial && $camiseta->precio_oferta !== null)
+                ? (float) $camiseta->precio_oferta
+                : (float) $camiseta->precio;
+
+            return [
+                'id' => $camiseta->id,
+                'titulo' => $camiseta->titulo,
+                'club' => $camiseta->club,
+                'pais' => $camiseta->pais,
+                'tipo' => $camiseta->tipo,
+                'color' => $camiseta->color,
+                'precio' => (float) $camiseta->precio,
+                'precio_oferta' => $camiseta->precio_oferta !== null ? (float) $camiseta->precio_oferta : null,
+                'precio_final' => $precioFinal,
+                'tallas' => $camiseta->tallas,
+            ];
+        });
+
+        return response()->json($camisetas, 200);
     }
 
     #[OA\Post(
@@ -143,9 +187,19 @@ class ClienteController extends Controller
     )]
     public function destroy(int $id): JsonResponse
     {
-        if (!Cliente::deleteRecord($id)) {
+        $cliente = Cliente::query()->withCount('camisetas')->find($id);
+
+        if (!$cliente) {
             return response()->json(['message' => 'Cliente no encontrado'], 404);
         }
+
+        if ($cliente->camisetas_count > 0) {
+            return response()->json([
+                'message' => 'No se puede eliminar el cliente porque tiene camisetas asociadas',
+            ], 409);
+        }
+
+        Cliente::deleteRecord($id);
 
         return response()->json(['message' => 'Cliente eliminado'], 200);
     }
