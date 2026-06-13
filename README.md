@@ -19,17 +19,27 @@ Backend de la evaluacion TodoCamisetas, montado con Laravel 11 y Docker para ase
 
 Desde la raiz del proyecto:
 
+### Windows (Docker Desktop)
+
+Usar los pasos normales de Docker (sin script):
+
+```bash
+cp .env.example .env
+docker compose up -d --build
+docker compose exec app php artisan key:generate
+docker compose exec app php artisan migrate
+```
+
+### Linux/WSL
+
+Para evitar problemas de permisos, usar el script que aplica UID/GID automaticamente:
+
 ```bash
 cp .env.example .env
 ./scripts/up.sh
 docker compose exec app php artisan key:generate
 docker compose exec app php artisan migrate
 ```
-
-Comportamiento por sistema operativo al ejecutar `./scripts/up.sh`:
-
-- Linux/WSL: aplica automaticamente UID/GID del usuario actual para evitar problemas de permisos en archivos.
-- Windows/macOS: ejecuta `docker compose up -d --build` normal, sin configuraciones extra.
 
 Si ya existen datos de pruebas anteriores y quieres reiniciar la base:
 
@@ -95,3 +105,22 @@ La Tarea 1 deja definidos estos componentes principales del dominio:
 - `camiseta_cliente`
 
 La implementacion de controladores, rutas CRUD, Swagger operativo y reglas de negocio se completa en las tareas siguientes.
+
+## Entrega
+
+Integrantes del equipo:
+
+- Gina Norambuena
+- Fabian Malinarich
+
+## Disclaimer
+
+Este proyecto fue desarrollado por el equipo y conto con apoyo de GitHub Copilot como herramienta de asistencia tecnica.
+
+Copilot se utilizo como coding partner para acelerar tareas operativas y mejorar la productividad en actividades como:
+
+- estructuracion de archivos y documentacion tecnica;
+- propuesta de implementaciones base y ajustes de configuracion;
+- apoyo en depuracion y validacion de comandos.
+
+Las decisiones de arquitectura, criterios de negocio, priorizacion de requerimientos y la responsabilidad intelectual del trabajo corresponden integramente al equipo.
