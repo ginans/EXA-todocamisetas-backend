@@ -104,7 +104,12 @@ La Tarea 1 deja definidos estos componentes principales del dominio:
 - `camiseta_talla`
 - `camiseta_cliente`
 
-La implementacion de controladores, rutas CRUD, Swagger operativo y reglas de negocio se completa en las tareas siguientes.
+Diagrama del modelo de datos en PlantUML:
+
+- `docs/diagramas/modelo-datos.puml`
+
+![](https://www.plantuml.com/plantuml/png/jLHDRzD04BtlhnZrrA96AaXSegggILsmcWH87CJDsgmdoOBjiMRNXzBotrax3lQ66WGL5sjdtdoyDxFhQsCbsohFn4wd23dQ7QLcRnYBZ6JlIpJ2VDL5ALdce39fJ60jwtLbCL9KBFKtX0iXiB3QtiE9ohGxeZa1QU1Wm8C0U04wXJ6yYTv6yzZPev7x59Il6HD5ERBICdC1duB5v5smS21NjhFXyd8rZpwkmgih1wMQKIbDXPUWfCKjiPRE6yvNirF6RPL9FeUISOECHTtZh8wamafbATaJyAiSCCobzXcLn0eT-WKJSlLitUWcd4IpO7hw-lnLKvdHiKWJMNEFercuZ8FP1mTKPVeKyBqtEvbhWrQsmpjOmzDpQLL6FlciMlkKfJQUm-hoA8KoOZ-7KMdgQNjvqOXh0KzxXxiDpLVJwNu_ZdYMeQcbXf_ZFgGerLjAIgQqKfO6DloSETQjso4snp_Uly5RXaQnBlrxvcbv_hAJXc93rdSDakxYUfXZTNlNSAgJ1w2_fGkm7yPfh-FvpmPdJyffttmho7V-gwGs_N-Awbeqihh7z_Wu6j73yMx6pL_2fQ1e7CDnAMvqWOC5kzcCmTH_5KQ5YHIjztVXYlAIfH05EPFrTcU1DaS4nFkvUwJJC0vX4YmdmKq8M83Crux8xPt08eKwVR18sqtqPZM6NseUs1wX2pVnHJI9kpRNxbJbsGy0)
+
 
 ## Entrega
 

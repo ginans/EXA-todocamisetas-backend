@@ -1,0 +1,78 @@
+@startuml
+hide methods
+hide stereotypes
+skinparam classAttributeIconSize 0
+
+entity "clientes" as clientes {
+  * id : BIGINT
+  --
+  nombre_comercial : VARCHAR
+  rut : VARCHAR <<UNIQUE>>
+  direccion : VARCHAR
+  categoria : ENUM(regular, preferencial)
+  contacto_nombre : VARCHAR
+  contacto_email : VARCHAR
+  porcentaje_oferta : DECIMAL(5,2)
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+entity "camisetas" as camisetas {
+  * id : BIGINT
+  --
+  titulo : VARCHAR
+  club : VARCHAR
+  pais : VARCHAR
+  tipo : VARCHAR
+  color : VARCHAR
+  precio : DECIMAL(10,2)
+  precio_oferta : DECIMAL(10,2) <<NULL>>
+  detalles : TEXT <<NULL>>
+  codigo_producto : VARCHAR <<UNIQUE>>
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+entity "tallas" as tallas {
+  * id : BIGINT
+  --
+  nombre : VARCHAR <<UNIQUE>>
+  descripcion : VARCHAR <<NULL>>
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+entity "camiseta_talla" as camiseta_talla {
+  * id : BIGINT
+  --
+  camiseta_id : BIGINT <<FK>>
+  talla_id : BIGINT <<FK>>
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+  UNIQUE(camiseta_id, talla_id)
+}
+
+entity "camiseta_cliente" as camiseta_cliente {
+  * id : BIGINT
+  --
+  camiseta_id : BIGINT <<FK>>
+  cliente_id : BIGINT <<FK>>
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+  UNIQUE(camiseta_id, cliente_id)
+}
+
+camisetas ||--o{ camiseta_talla : contiene
+tallas ||--o{ camiseta_talla : define
+camisetas ||--o{ camiseta_cliente : se_ofrece_a
+clientes ||--o{ camiseta_cliente : compra
+
+note right of camiseta_talla
+ON DELETE CASCADE en ambas FK
+end note
+
+note right of camiseta_cliente
+camiseta_id: ON DELETE CASCADE
+cliente_id: ON DELETE RESTRICT
+end note
+@enduml
