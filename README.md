@@ -21,10 +21,15 @@ Desde la raiz del proyecto:
 
 ```bash
 cp .env.example .env
-docker compose up -d --build
+./scripts/up.sh
 docker compose exec app php artisan key:generate
 docker compose exec app php artisan migrate
 ```
+
+Comportamiento por sistema operativo al ejecutar `./scripts/up.sh`:
+
+- Linux/WSL: aplica automaticamente UID/GID del usuario actual para evitar problemas de permisos en archivos.
+- Windows/macOS: ejecuta `docker compose up -d --build` normal, sin configuraciones extra.
 
 Si ya existen datos de pruebas anteriores y quieres reiniciar la base:
 
@@ -70,7 +75,6 @@ curl -s http://localhost:8080/api/v1/tallas
 - Si falla por puertos ocupados (`8080` o `3306`), liberar puerto o cambiar mapeo en `docker-compose.yml`.
 - Si Swagger no refleja cambios nuevos, regenerar con:
 	- `docker compose exec app php artisan l5-swagger:generate`
-- Si aparecen problemas de permisos en archivos generados por Docker, volver a levantar con las variables `UID` y `GID` del `.env`.
 
 ## Estructura base
 
